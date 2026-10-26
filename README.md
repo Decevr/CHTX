@@ -1,31 +1,50 @@
 # CHTX
 
-A phone catalog of character portraits and a short character line for each one. Paste that line with your own prompt in ComfyUI or Forge so the picture uses that character.
+CHTX is a catalog of character portraits and a short character line for each one. It is a prompting guide for ComfyUI and Forge.
 
-The menu has Browse and Categories. A search bar on the main screen finds a character by name or series. Open a character to see the portrait, the name, the series, and the character line. Copy the sentence or the Danbooru tags.
+Pick a character, copy the line, and paste it into your own prompt. The line names the character and the series, so the picture uses that character. Your prompt sets the scene. A second copy button has the Danbooru character tags. Gelbooru uses the same character tags.
 
-## Install on a phone
+The catalog has 744 portraits. Categories are Anime, Marvel, DC, Disney, Pixar, Pokemon, Video Games, and Cartoons. Search finds a character by name or series. Browse shows the portraits, and Categories opens one group at a time.
 
-1. Open the [v1.5.0 release](https://github.com/Decevr/CHTX/releases/tag/v1.5.0) on the phone while signed in to this GitHub account.
-2. Download `chtx-1.5.0.apk`.
-3. Open the file. If Android asks, allow install from the browser.
-4. Install, then open CHTX.
+The banner shows the CHTX wordmark over character portraits. DecervCo is the small name at the bottom right of the banner.
 
-This repository is private. The release download requires the Decevr GitHub login.
+CHTX stores the catalog in the app. Browsing and copying work without an account.
 
-## What is in the catalog
+## Install on Windows
 
-744 portraits from the lookbook. Categories are Anime, Marvel, DC, Disney, Pixar, Pokemon, Video Games, and Cartoons. The sentence is the character name and series. The tags are the Danbooru character tags, which Gelbooru uses too.
+1. Download [CHTX-Setup-1.5.0.exe](https://github.com/Decevr/CHTX/releases/download/v1.5.0/CHTX-Setup-1.5.0.exe).
+2. Open the file and choose Install.
+3. If Windows says the publisher is unknown, choose More info, then Run anyway.
+4. Open CHTX from the desktop shortcut or the Start menu.
 
-## Build
+The installer does not need an administrator login. It puts CHTX in your user folder and adds the shortcuts. To remove it, open Start, go to CHTX, and choose Uninstall CHTX.
 
-Requires JDK 17 and Android SDK 35.
+## Install on Android
+
+1. Download [chtx-1.5.0.apk](https://github.com/Decevr/CHTX/releases/download/v1.5.0/chtx-1.5.0.apk).
+2. Open the file. If Android asks, allow install from the browser.
+3. Install, then open CHTX.
+
+The app is sideloaded from this release. It is not on the Play Store. A newer install replaces the older one.
+
+## What you copy
+
+Open a character to see the portrait, the name, and the series.
+
+- Character line: `Usagi Tsukino from Sailor Moon`
+- Danbooru tags: `tsukino_usagi, bishoujo_senshi_sailor_moon`
+
+Paste the character line with your own prompt in ComfyUI or Forge. Copy the tags when the model takes Danbooru or Gelbooru tags.
+
+## Build from source
+
+The Android project needs JDK 17 and Android SDK 35. Put your SDK path in `local.properties`:
 
 ```
-sdk.dir=C:/Users/Danie/Android/sdk
+sdk.dir=C:/path/to/Android/sdk
 ```
 
-Put that in `local.properties`, then:
+Then run:
 
 ```
 gradle assembleDebug
@@ -33,6 +52,10 @@ gradle assembleDebug
 
 The installable file is `app/build/outputs/apk/debug/app-debug.apk`.
 
-## Desktop
+The Windows installer is built on Windows:
 
-The CHTX shortcut opens `app/src/main/assets/www/index.html` from this repo. That page is the desktop copy, so it matches the phone catalog. The banner shows the chrome CHTX wordmark over the character portraits, with DecervCo in small type at the bottom right.
+```
+powershell -ExecutionPolicy Bypass -File windows\build-setup.ps1
+```
+
+That writes `dist/CHTX-Setup-1.5.0.exe`. The `dist` folder stays on the machine that built it.

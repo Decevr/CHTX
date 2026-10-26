@@ -51,7 +51,7 @@
       '<div class="detail-bar"><button type="button" class="back" id="back">Back</button></div>' +
       '<img class="portrait" alt="">' +
       '<div class="detail-copy"><h2></h2><p class="meta"></p></div>' +
-      '<article class="prompt"><h3>Anima prompt</h3><p id="positive"></p><button type="button" class="copy" id="copy-positive">Copy prompt</button></article>' +
+      '<article class="prompt"><h3>Character</h3><p id="positive"></p><button type="button" class="copy" id="copy-positive">Copy character</button></article>' +
       '<article class="prompt"><h3>Danbooru / Gelbooru</h3><p id="booru"></p><button type="button" class="copy" id="copy-booru">Copy tags</button></article>' +
       '<p class="note"></p>';
     detail.querySelector(".portrait").src = row.image;

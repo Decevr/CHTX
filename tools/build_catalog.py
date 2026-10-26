@@ -59,10 +59,9 @@ SETTINGS = {
     "sampler": "er_sde",
     "scheduler": "simple",
     "note": (
-        "The sentence is a prompting guide for the Anima text-to-image workflow. "
-        "Danbooru / Gelbooru is the tag guide for Illustrious, Pony, NoobAI, and other tag models. "
-        "Gelbooru uses the same character tags. "
-        "These portraits were drawn at 768 by 1024, 20 steps, CFG 5, er_sde / simple."
+        "Paste this with your own prompt in ComfyUI or Forge. "
+        "The line names the character. Your prompt sets the scene. "
+        "Danbooru and Gelbooru use the same character tags."
     ),
 }
 
@@ -74,16 +73,8 @@ def load_module(name: str, path: Path):
     return module
 
 
-def generic_positive(name: str, series: str, adult: bool) -> str:
-    lead = "A 25-year-old adult woman. " if adult else ""
-    return (
-        f"{lead}{name} from {series}. {name}, the character from {series}. "
-        f"Keep her canonical face, hair, eye color, and design from {series}. "
-        "She is fully clothed in her recognizable series costume. "
-        "Bust portrait, head and shoulders, facing the viewer, looking at the viewer. "
-        "Simple soft studio background. One character, one face, correct design, "
-        "ultra detailed, sharp focus, detailed eyes, beautiful hair."
-    )
+def character_line(name: str, series: str) -> str:
+    return f"{name} from {series}"
 
 
 def parse_page() -> list[dict]:
@@ -167,12 +158,8 @@ def main():
 
     characters_out = []
     for row in rows:
-        key = (row["name"], row["series"])
-        if key in custom:
-            positive, negative = custom[key]
-        else:
-            positive = generic_positive(row["name"], row["series"], key in adult)
-            negative = LOOKBOOK_NEG
+        positive = character_line(row["name"], row["series"])
+        negative = LOOKBOOK_NEG
         booru_positive, booru_negative, _tag = booru_prompt(row["name"], row["series"])
         src = LOOKBOOK / row["src"]
         if not src.is_file():
@@ -200,7 +187,7 @@ def main():
         for key in counts
     ]
     catalog = {
-        "title": "Prompt Assist",
+        "title": "CharPrompt",
         "count": len(characters_out),
         "settings": SETTINGS,
         "categories": categories,

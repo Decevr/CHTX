@@ -435,7 +435,7 @@ def booru_prompt(name: str, series: str) -> tuple[str, str, str]:
     _, by_base, copyrights, loose_copyright = load_tags()
     series_tag = copyright_tag(series, copyrights, loose_copyright)
     chosen, count = character_tag(name, series, series_tag, by_base)
-    tags = [QUALITY, FRAMING]
+    tags = []
     if chosen:
         tags.append(chosen)
     else:

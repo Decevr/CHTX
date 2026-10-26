@@ -9,7 +9,7 @@
   var toast = document.getElementById("toast");
 
   document.getElementById("lede").textContent =
-    data.count + " character portraits, with the prompt for each.";
+    data.count + " character portraits, with a sentence prompt and Danbooru tags.";
 
   function byCategory(id) {
     if (id === "all") return data.characters;
@@ -31,16 +31,22 @@
       '<div class="detail-copy"><h2></h2><p class="meta"></p></div>' +
       '<article class="prompt"><h3>Positive</h3><p id="positive"></p><button type="button" class="copy" id="copy-positive">Copy positive</button></article>' +
       '<article class="prompt"><h3>Negative</h3><p id="negative"></p><button type="button" class="copy" id="copy-negative">Copy negative</button></article>' +
+      '<article class="prompt"><h3>Danbooru / Gelbooru</h3><p id="booru"></p><button type="button" class="copy" id="copy-booru">Copy tags</button></article>' +
+      '<article class="prompt"><h3>Danbooru / Gelbooru negative</h3><p id="booru-negative"></p><button type="button" class="copy" id="copy-booru-negative">Copy tag negative</button></article>' +
       '<p class="note"></p>';
     detail.querySelector(".portrait").src = row.image;
     detail.querySelector("h2").textContent = row.name;
     detail.querySelector(".meta").textContent = row.series + " · " + labelFor(row.category);
     detail.querySelector("#positive").textContent = row.positive;
     detail.querySelector("#negative").textContent = row.negative;
+    detail.querySelector("#booru").textContent = row.booru || "";
+    detail.querySelector("#booru-negative").textContent = row.booru_negative || "";
     detail.querySelector(".note").textContent = data.settings.note;
     detail.querySelector("#back").addEventListener("click", closeDetail);
     detail.querySelector("#copy-positive").addEventListener("click", function () { copyText(row.positive); });
     detail.querySelector("#copy-negative").addEventListener("click", function () { copyText(row.negative); });
+    detail.querySelector("#copy-booru").addEventListener("click", function () { copyText(row.booru || ""); });
+    detail.querySelector("#copy-booru-negative").addEventListener("click", function () { copyText(row.booru_negative || ""); });
   }
 
   function closeDetail() {

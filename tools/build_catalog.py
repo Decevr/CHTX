@@ -8,7 +8,11 @@ import html
 import importlib.util
 import json
 import re
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from booru_tags import booru_prompt  # noqa: E402
 
 from PIL import Image
 
@@ -55,11 +59,10 @@ SETTINGS = {
     "sampler": "er_sde",
     "scheduler": "simple",
     "note": (
-        "Paste the positive into the Anima text-to-image positive box and the negative into the negative box. "
-        "These portraits were drawn at 768 by 1024, 20 steps, CFG 5, er_sde / simple, "
-        "Pearly Sapphire v10, Qwen CLIP, and the HDR VAE. "
-        "The text-to-image graph defaults to 1024 square, 40 steps, and euler ancestral. "
-        "Match the portrait settings when you want this framing."
+        "Positive and negative are for the Anima text-to-image workflow. "
+        "Danbooru / Gelbooru is the tag prompt for Illustrious, Pony, NoobAI, and other tag models. "
+        "Gelbooru uses the same character tags. "
+        "These portraits were drawn at 768 by 1024, 20 steps, CFG 5, er_sde / simple."
     ),
 }
 
@@ -170,6 +173,7 @@ def main():
         else:
             positive = generic_positive(row["name"], row["series"], key in adult)
             negative = LOOKBOOK_NEG
+        booru_positive, booru_negative, _tag = booru_prompt(row["name"], row["series"])
         src = LOOKBOOK / row["src"]
         if not src.is_file():
             raise SystemExit(f"missing image {src}")
@@ -184,6 +188,8 @@ def main():
             "image": rel,
             "positive": positive,
             "negative": negative,
+            "booru": booru_positive,
+            "booru_negative": booru_negative,
         })
 
     counts = {}
@@ -202,7 +208,8 @@ def main():
     }
     payload = "window.CATALOG = " + json.dumps(catalog, ensure_ascii=False) + ";\n"
     (WWW / "catalog.js").write_text(payload, encoding="utf-8")
-    install_marks()
+    if not (RES / "mipmap-xxxhdpi" / "ic_launcher.png").is_file():
+        install_marks()
     image_bytes = sum(path.stat().st_size for path in (WWW / "images").rglob("*.jpg"))
     print(f"wrote {len(characters_out)} images_mb={image_bytes / 1048576:.1f}", flush=True)
 

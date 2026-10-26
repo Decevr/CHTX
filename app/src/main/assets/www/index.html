@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Prompt Assist</title>
+  <title>CharPrompt</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -12,7 +12,7 @@
     <div class="hero-shade"></div>
     <div class="hero-copy">
       <p class="eyebrow">Character prompts</p>
-      <h1><span>Prompt</span><em>Assist</em></h1>
+      <h1>Char<span>Prompt</span></h1>
     </div>
   </header>
   <div class="toolbar">
@@ -26,7 +26,14 @@
       </div>
     </form>
     <p class="status" id="status"></p>
-    <div class="chips" id="chips" hidden></div>
+    <div class="category-menu" id="category-menu" hidden>
+      <button type="button" id="category-toggle" aria-expanded="false" aria-haspopup="listbox">
+        <span id="category-label">All</span>
+        <span id="category-count"></span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+      </button>
+      <div class="category-panel" id="category-panel" role="listbox" hidden></div>
+    </div>
   </div>
   <main id="main"></main>
   <nav class="dock" aria-label="Main menu">

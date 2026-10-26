@@ -4,7 +4,12 @@
   var category = "all";
   var query = "";
   var main = document.getElementById("main");
-  var chips = document.getElementById("chips");
+  var menu = document.getElementById("category-menu");
+  var menuToggle = document.getElementById("category-toggle");
+  var menuPanel = document.getElementById("category-panel");
+  var menuLabel = document.getElementById("category-label");
+  var menuCount = document.getElementById("category-count");
+  var menuOpen = false;
   var detail = document.getElementById("detail");
   var toast = document.getElementById("toast");
   var searchInput = document.getElementById("search");
@@ -46,24 +51,18 @@
       '<div class="detail-bar"><button type="button" class="back" id="back">Back</button></div>' +
       '<img class="portrait" alt="">' +
       '<div class="detail-copy"><h2></h2><p class="meta"></p></div>' +
-      '<article class="prompt"><h3>Positive</h3><p id="positive"></p><button type="button" class="copy" id="copy-positive">Copy positive</button></article>' +
-      '<article class="prompt"><h3>Negative</h3><p id="negative"></p><button type="button" class="copy" id="copy-negative">Copy negative</button></article>' +
+      '<article class="prompt"><h3>Anima prompt</h3><p id="positive"></p><button type="button" class="copy" id="copy-positive">Copy prompt</button></article>' +
       '<article class="prompt"><h3>Danbooru / Gelbooru</h3><p id="booru"></p><button type="button" class="copy" id="copy-booru">Copy tags</button></article>' +
-      '<article class="prompt"><h3>Danbooru / Gelbooru negative</h3><p id="booru-negative"></p><button type="button" class="copy" id="copy-booru-negative">Copy tag negative</button></article>' +
       '<p class="note"></p>';
     detail.querySelector(".portrait").src = row.image;
     detail.querySelector("h2").textContent = row.name;
     detail.querySelector(".meta").textContent = row.series + " · " + labelFor(row.category);
     detail.querySelector("#positive").textContent = row.positive;
-    detail.querySelector("#negative").textContent = row.negative;
     detail.querySelector("#booru").textContent = row.booru || "";
-    detail.querySelector("#booru-negative").textContent = row.booru_negative || "";
     detail.querySelector(".note").textContent = data.settings.note;
     detail.querySelector("#back").addEventListener("click", closeDetail);
     detail.querySelector("#copy-positive").addEventListener("click", function () { copyText(row.positive); });
-    detail.querySelector("#copy-negative").addEventListener("click", function () { copyText(row.negative); });
     detail.querySelector("#copy-booru").addEventListener("click", function () { copyText(row.booru || ""); });
-    detail.querySelector("#copy-booru-negative").addEventListener("click", function () { copyText(row.booru_negative || ""); });
   }
 
   function closeDetail() {
@@ -107,30 +106,59 @@
     return button;
   }
 
-  function renderChips() {
-    chips.hidden = view !== "browse";
-    if (view !== "browse") return;
-    var items = [{ id: "all", label: "All" }].concat(data.categories);
-    var existing = chips.querySelectorAll(".chip");
-    if (existing.length !== items.length) {
-      chips.innerHTML = "";
+  function categoryItems() {
+    return [{ id: "all", label: "All" }].concat(data.categories);
+  }
+
+  function closeMenu() {
+    menuOpen = false;
+    menu.classList.remove("is-open");
+    menuToggle.setAttribute("aria-expanded", "false");
+    menuPanel.hidden = true;
+  }
+
+  function openMenu() {
+    menuOpen = true;
+    menu.classList.add("is-open");
+    menuToggle.setAttribute("aria-expanded", "true");
+    menuPanel.hidden = false;
+  }
+
+  function renderMenu() {
+    menu.hidden = view !== "browse";
+    if (view !== "browse") {
+      closeMenu();
+      return;
+    }
+    var items = categoryItems();
+    if (menuPanel.childElementCount !== items.length) {
+      menuPanel.innerHTML = "";
       items.forEach(function (item) {
         var button = document.createElement("button");
         button.type = "button";
-        button.className = "chip";
+        button.className = "category-option";
         button.dataset.id = item.id;
+        var name = document.createElement("strong");
+        var count = document.createElement("span");
+        button.appendChild(name);
+        button.appendChild(count);
         button.addEventListener("click", function () {
           category = item.id;
+          closeMenu();
           closeDetail();
           render();
         });
-        chips.appendChild(button);
+        menuPanel.appendChild(button);
       });
     }
-    chips.querySelectorAll(".chip").forEach(function (button, index) {
+    var current = items.filter(function (item) { return item.id === category; })[0];
+    menuLabel.textContent = current.label;
+    menuCount.textContent = String(countFor(current.id));
+    menuPanel.querySelectorAll(".category-option").forEach(function (button, index) {
       var item = items[index];
       button.classList.toggle("is-on", item.id === category);
-      button.textContent = item.label + " " + countFor(item.id);
+      button.querySelector("strong").textContent = item.label;
+      button.querySelector("span").textContent = String(countFor(item.id));
     });
   }
 
@@ -215,7 +243,7 @@
   }
 
   function render() {
-    renderChips();
+    renderMenu();
     if (view === "categories") {
       renderCategories();
       updateStatus(0);
@@ -225,6 +253,13 @@
     updateStatus(applyFilter());
   }
 
+  menuToggle.addEventListener("click", function () {
+    if (menuOpen) closeMenu();
+    else openMenu();
+  });
+  document.addEventListener("click", function (event) {
+    if (menuOpen && !menu.contains(event.target)) closeMenu();
+  });
   finder.addEventListener("submit", function (event) { event.preventDefault(); });
   searchInput.addEventListener("input", function () {
     query = searchInput.value;

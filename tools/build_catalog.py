@@ -59,8 +59,8 @@ SETTINGS = {
     "sampler": "er_sde",
     "scheduler": "simple",
     "note": (
-        "Positive and negative are for the Anima text-to-image workflow. "
-        "Danbooru / Gelbooru is the tag prompt for Illustrious, Pony, NoobAI, and other tag models. "
+        "The sentence is a prompting guide for the Anima text-to-image workflow. "
+        "Danbooru / Gelbooru is the tag guide for Illustrious, Pony, NoobAI, and other tag models. "
         "Gelbooru uses the same character tags. "
         "These portraits were drawn at 768 by 1024, 20 steps, CFG 5, er_sde / simple."
     ),

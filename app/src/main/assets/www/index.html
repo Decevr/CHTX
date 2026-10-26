@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Prompt Assist</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <img class="banner" src="banner.jpg" alt="">
+    <div class="hero-shade"></div>
+    <div class="hero-copy">
+      <p class="eyebrow">Anima text to image</p>
+      <h1>Prompt Assist</h1>
+      <p class="lede" id="lede">Character portraits and the prompt for each.</p>
+    </div>
+  </header>
+  <div class="chips" id="chips" hidden></div>
+  <main id="main"></main>
+  <nav class="dock" aria-label="Main menu">
+    <button type="button" data-view="browse" class="is-on">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg>
+      Browse
+    </button>
+    <button type="button" data-view="categories">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"></path></svg>
+      Categories
+    </button>
+    <button type="button" data-view="search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"></circle><path d="M16 16l4 4"></path></svg>
+      Search
+    </button>
+  </nav>
+  <section id="detail" hidden></section>
+  <p class="toast" id="toast" hidden>Copied</p>
+  <script src="catalog.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

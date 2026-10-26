@@ -7,9 +7,10 @@
   var chips = document.getElementById("chips");
   var detail = document.getElementById("detail");
   var toast = document.getElementById("toast");
-
-  document.getElementById("lede").textContent =
-    data.count + " character portraits, with a sentence prompt and Danbooru tags.";
+  var searchInput = document.getElementById("search");
+  var clearButton = document.getElementById("clear-search");
+  var status = document.getElementById("status");
+  var finder = document.getElementById("finder");
 
   function byCategory(id) {
     if (id === "all") return data.characters;
@@ -19,6 +20,22 @@
   function labelFor(id) {
     var found = data.categories.filter(function (row) { return row.id === id; })[0];
     return found ? found.label : id;
+  }
+
+  function matches(row, needle) {
+    if (!needle) return true;
+    return row.name.toLowerCase().indexOf(needle) !== -1 ||
+      row.series.toLowerCase().indexOf(needle) !== -1;
+  }
+
+  function countFor(id) {
+    var needle = query.trim().toLowerCase();
+    var total = 0;
+    data.characters.forEach(function (row) {
+      if (id !== "all" && row.category !== id) return;
+      if (matches(row, needle)) total += 1;
+    });
+    return total;
   }
 
   function openDetail(index) {
@@ -69,6 +86,8 @@
     var button = document.createElement("button");
     button.type = "button";
     button.className = "card";
+    button.dataset.name = row.name.toLowerCase();
+    button.dataset.series = row.series.toLowerCase();
     var image = document.createElement("img");
     image.alt = "";
     image.loading = "lazy";
@@ -91,29 +110,63 @@
   function renderChips() {
     chips.hidden = view !== "browse";
     if (view !== "browse") return;
-    chips.innerHTML = "";
-    var items = [{ id: "all", label: "All", count: data.count }].concat(data.categories);
-    items.forEach(function (item) {
-      var button = document.createElement("button");
-      button.type = "button";
-      button.className = "chip" + (item.id === category ? " is-on" : "");
-      button.textContent = item.label + " " + item.count;
-      button.addEventListener("click", function () {
-        category = item.id;
-        render();
+    var items = [{ id: "all", label: "All" }].concat(data.categories);
+    var existing = chips.querySelectorAll(".chip");
+    if (existing.length !== items.length) {
+      chips.innerHTML = "";
+      items.forEach(function (item) {
+        var button = document.createElement("button");
+        button.type = "button";
+        button.className = "chip";
+        button.dataset.id = item.id;
+        button.addEventListener("click", function () {
+          category = item.id;
+          closeDetail();
+          render();
+        });
+        chips.appendChild(button);
       });
-      chips.appendChild(button);
+    }
+    chips.querySelectorAll(".chip").forEach(function (button, index) {
+      var item = items[index];
+      button.classList.toggle("is-on", item.id === category);
+      button.textContent = item.label + " " + countFor(item.id);
     });
   }
 
-  function renderBrowse() {
+  function ensureGrid() {
+    if (main.dataset.grid === category && main.querySelector(".grid")) return;
+    main.innerHTML = "";
     var grid = document.createElement("div");
     grid.className = "grid";
     byCategory(category).forEach(function (row) { grid.appendChild(card(row)); });
+    var empty = document.createElement("p");
+    empty.className = "empty";
+    empty.hidden = true;
+    empty.textContent = "No characters match.";
     main.appendChild(grid);
+    main.appendChild(empty);
+    main.dataset.grid = category;
+  }
+
+  function applyFilter() {
+    var needle = query.trim().toLowerCase();
+    var shown = 0;
+    main.querySelectorAll(".card").forEach(function (node) {
+      var hit = !needle ||
+        node.dataset.name.indexOf(needle) !== -1 ||
+        node.dataset.series.indexOf(needle) !== -1;
+      node.hidden = !hit;
+      if (hit) shown += 1;
+    });
+    var empty = main.querySelector(".empty");
+    if (empty) empty.hidden = shown !== 0;
+    return shown;
   }
 
   function renderCategories() {
+    main.innerHTML = "";
+    delete main.dataset.grid;
     var wrap = document.createElement("div");
     wrap.className = "tiles";
     data.categories.forEach(function (item) {
@@ -122,8 +175,9 @@
       button.className = "tile";
       var name = document.createElement("strong");
       name.textContent = item.label;
+      var total = query.trim() ? countFor(item.id) : item.count;
       var count = document.createElement("span");
-      count.textContent = item.count + " characters";
+      count.textContent = total + (total === 1 ? " character" : " characters");
       button.appendChild(name);
       button.appendChild(count);
       button.addEventListener("click", function () {
@@ -135,87 +189,59 @@
     main.appendChild(wrap);
   }
 
-  function renderSearch() {
-    var wrap = document.createElement("div");
-    wrap.className = "search";
-    var input = document.createElement("input");
-    input.type = "search";
-    input.placeholder = "Search characters or series";
-    input.value = query;
-    input.setAttribute("enterkeyhint", "search");
-    var results = document.createElement("div");
-    results.className = "results";
-    function paint() {
-      results.innerHTML = "";
-      var needle = query.trim().toLowerCase();
-      var rows = data.characters.filter(function (row) {
-        if (!needle) return false;
-        return row.name.toLowerCase().indexOf(needle) !== -1 ||
-          row.series.toLowerCase().indexOf(needle) !== -1;
-      }).slice(0, 40);
-      if (!needle) {
-        var hint = document.createElement("p");
-        hint.className = "empty";
-        hint.textContent = "Search by character or series.";
-        results.appendChild(hint);
-        return;
-      }
-      if (!rows.length) {
-        var empty = document.createElement("p");
-        empty.className = "empty";
-        empty.textContent = "No matches.";
-        results.appendChild(empty);
-        return;
-      }
-      rows.forEach(function (row) {
-        var button = document.createElement("button");
-        button.type = "button";
-        button.className = "result";
-        var image = document.createElement("img");
-        image.alt = "";
-        image.src = row.image;
-        var copy = document.createElement("div");
-        var title = document.createElement("strong");
-        title.textContent = row.name;
-        var series = document.createElement("span");
-        series.textContent = row.series;
-        copy.appendChild(title);
-        copy.appendChild(series);
-        button.appendChild(image);
-        button.appendChild(copy);
-        button.addEventListener("click", function () {
-          openDetail(data.characters.indexOf(row));
-        });
-        results.appendChild(button);
-      });
+  function updateStatus(shown) {
+    if (view === "categories") {
+      status.textContent = "Choose a category";
+      return;
     }
-    input.addEventListener("input", function () {
-      query = input.value;
-      paint();
+    if (query.trim()) {
+      status.textContent = shown === 1 ? "1 match" : shown + " matches";
+      return;
+    }
+    status.textContent = data.count + " portraits · Anima and Danbooru";
+  }
+
+  function syncDock() {
+    document.querySelectorAll(".dock button").forEach(function (button) {
+      button.classList.toggle("is-on", button.getAttribute("data-view") === view);
     });
-    wrap.appendChild(input);
-    wrap.appendChild(results);
-    main.appendChild(wrap);
-    paint();
-    input.focus();
   }
 
   function setView(next) {
     view = next;
-    document.querySelectorAll(".dock button").forEach(function (button) {
-      button.classList.toggle("is-on", button.getAttribute("data-view") === view);
-    });
+    closeDetail();
+    syncDock();
     render();
   }
 
   function render() {
-    closeDetail();
-    main.innerHTML = "";
     renderChips();
-    if (view === "categories") renderCategories();
-    else if (view === "search") renderSearch();
-    else renderBrowse();
+    if (view === "categories") {
+      renderCategories();
+      updateStatus(0);
+      return;
+    }
+    ensureGrid();
+    updateStatus(applyFilter());
   }
+
+  finder.addEventListener("submit", function (event) { event.preventDefault(); });
+  searchInput.addEventListener("input", function () {
+    query = searchInput.value;
+    clearButton.hidden = query.length === 0;
+    if (query.trim() && view !== "browse") {
+      view = "browse";
+      syncDock();
+    }
+    render();
+  });
+  clearButton.addEventListener("click", function () {
+    query = "";
+    searchInput.value = "";
+    clearButton.hidden = true;
+    searchInput.focus();
+    render();
+  });
 
   document.querySelectorAll(".dock button").forEach(function (button) {
     button.addEventListener("click", function () {

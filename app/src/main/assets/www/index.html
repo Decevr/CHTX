@@ -11,25 +11,32 @@
     <img class="banner" src="banner.jpg" alt="">
     <div class="hero-shade"></div>
     <div class="hero-copy">
-      <p class="eyebrow">Anima text to image</p>
-      <h1>Prompt Assist</h1>
-      <p class="lede" id="lede">Character portraits and the prompt for each.</p>
+      <p class="eyebrow">Character prompts</p>
+      <h1><span>Prompt</span><em>Assist</em></h1>
     </div>
   </header>
-  <div class="chips" id="chips" hidden></div>
+  <div class="toolbar">
+    <form class="finder" id="finder" role="search">
+      <div class="searchbar">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"></circle><path d="M16 16l4 4"></path></svg>
+        <input id="search" type="search" placeholder="Search a character" aria-label="Search a character" autocomplete="off" enterkeyhint="search">
+        <button type="button" id="clear-search" hidden aria-label="Clear search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"></path></svg>
+        </button>
+      </div>
+    </form>
+    <p class="status" id="status"></p>
+    <div class="chips" id="chips" hidden></div>
+  </div>
   <main id="main"></main>
   <nav class="dock" aria-label="Main menu">
     <button type="button" data-view="browse" class="is-on">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg>
-      Browse
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.6"></rect><rect x="14" y="3" width="7" height="7" rx="1.6"></rect><rect x="3" y="14" width="7" height="7" rx="1.6"></rect><rect x="14" y="14" width="7" height="7" rx="1.6"></rect></svg>
+      <span>Browse</span>
     </button>
     <button type="button" data-view="categories">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"></path></svg>
-      Categories
-    </button>
-    <button type="button" data-view="search">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"></circle><path d="M16 16l4 4"></path></svg>
-      Search
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="7" rx="1.6"></rect><rect x="3" y="14" width="8" height="7" rx="1.6"></rect><rect x="13" y="14" width="8" height="7" rx="1.6"></rect></svg>
+      <span>Categories</span>
     </button>
   </nav>
   <section id="detail" hidden></section>

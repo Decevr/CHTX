@@ -2,12 +2,12 @@
 
 A phone catalog of the clothed character portraits and the prompt for each one. Paste a prompt into the Anima text-to-image workflow, or use the Danbooru / Gelbooru tags on Illustrious, Pony, NoobAI, and other tag models.
 
-The menu has Browse, Categories, and Search. Open a character to see the portrait, name, series, sentence prompt, and tag prompt. Copy any of them to the clipboard.
+The menu has Browse and Categories. A search bar on the main screen finds a character by name or series. Open a character to see the portrait, name, series, sentence prompt, and tag prompt. Copy any of them to the clipboard.
 
 ## Install on a phone
 
-1. Open the [v1.1.0 release](https://github.com/Decevr/prompt-assist/releases/tag/v1.1.0) on the phone while signed in to this GitHub account.
-2. Download `prompt-assist-1.1.0.apk`.
+1. Open the [v1.2.0 release](https://github.com/Decevr/prompt-assist/releases/tag/v1.2.0) on the phone while signed in to this GitHub account.
+2. Download `prompt-assist-1.2.0.apk`.
 3. Open the file. If Android asks, allow install from the browser.
 4. Install, then open Prompt Assist.
 

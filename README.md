@@ -6,7 +6,7 @@ The menu has Browse and Categories. A search bar on the main screen finds a char
 
 ## Install on a phone
 
-1. Open the [v1.5.0 release](https://github.com/Decevr/chtx/releases/tag/v1.5.0) on the phone while signed in to this GitHub account.
+1. Open the [v1.5.0 release](https://github.com/Decevr/CHTX/releases/tag/v1.5.0) on the phone while signed in to this GitHub account.
 2. Download `chtx-1.5.0.apk`.
 3. Open the file. If Android asks, allow install from the browser.
 4. Install, then open CHTX.

@@ -71,8 +71,8 @@
   }
 
   function copyText(text) {
-    if (window.PromptAssist && window.PromptAssist.copy) {
-      window.PromptAssist.copy(text);
+    if (window.CHTX && window.CHTX.copy) {
+      window.CHTX.copy(text);
     } else if (navigator.clipboard) {
       navigator.clipboard.writeText(text);
     }

@@ -3,10 +3,10 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="CharPrompt"
+        android:label="CHTX"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.PromptAssist"
+        android:theme="@style/Theme.CHTX"
         android:hardwareAccelerated="true">
         <activity
             android:name=".MainActivity"

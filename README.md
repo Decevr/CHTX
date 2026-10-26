@@ -1,4 +1,4 @@
-# CharPrompt
+# CHTX
 
 A phone catalog of character portraits and a short character line for each one. Paste that line with your own prompt in ComfyUI or Forge so the picture uses that character.
 
@@ -6,10 +6,10 @@ The menu has Browse and Categories. A search bar on the main screen finds a char
 
 ## Install on a phone
 
-1. Open the [v1.4.0 release](https://github.com/Decevr/prompt-assist/releases/tag/v1.4.0) on the phone while signed in to this GitHub account.
-2. Download `prompt-assist-1.4.0.apk`.
+1. Open the [v1.5.0 release](https://github.com/Decevr/chtx/releases/tag/v1.5.0) on the phone while signed in to this GitHub account.
+2. Download `chtx-1.5.0.apk`.
 3. Open the file. If Android asks, allow install from the browser.
-4. Install, then open CharPrompt.
+4. Install, then open CHTX.
 
 This repository is private. The release download requires the Decevr GitHub login.
 
@@ -32,3 +32,7 @@ gradle assembleDebug
 ```
 
 The installable file is `app/build/outputs/apk/debug/app-debug.apk`.
+
+## Desktop
+
+The CHTX shortcut opens `app/src/main/assets/www/index.html` from this repo. That page is the desktop copy, so it matches the phone catalog. The banner shows the chrome CHTX wordmark over the character portraits, with DecervCo in small type at the bottom right.

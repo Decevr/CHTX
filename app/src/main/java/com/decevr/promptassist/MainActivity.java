@@ -23,7 +23,7 @@ public class MainActivity extends Activity {
         settings.setAllowFileAccess(true);
         settings.setBuiltInZoomControls(false);
         settings.setDisplayZoomControls(false);
-        web.addJavascriptInterface(new Bridge(), "PromptAssist");
+        web.addJavascriptInterface(new Bridge(), "CHTX");
         web.loadUrl("file:///android_asset/www/index.html");
     }
 

@@ -1,4 +1,4 @@
-"""Build the Prompt Assist catalog from the clothed lookbook.
+"""Build the CHTX catalog from the clothed lookbook.
 
 Writes phone-sized JPEGs and catalog.js. Does not touch the dropdowns.
 """
@@ -16,7 +16,7 @@ from booru_tags import booru_prompt  # noqa: E402
 
 from PIL import Image
 
-ROOT = Path(r"C:\Users\Danie\Projects\PromptAssist")
+ROOT = Path(__file__).resolve().parents[1]
 WWW = ROOT / "app" / "src" / "main" / "assets" / "www"
 RES = ROOT / "app" / "src" / "main" / "res"
 LOOKBOOK = Path(r"D:\ComfyUIPIC\anima\lookbook")
@@ -187,7 +187,7 @@ def main():
         for key in counts
     ]
     catalog = {
-        "title": "CharPrompt",
+        "title": "CHTX",
         "count": len(characters_out),
         "settings": SETTINGS,
         "categories": categories,

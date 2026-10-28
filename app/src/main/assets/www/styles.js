@@ -7,7 +7,7 @@ window.STYLES = [
   {
     name: "Photorealistic",
     image: "images/styles/photorealistic.jpg?v=2",
-    prompt: "photorealistic, raw photograph, natural skin, real camera, not a drawing"
+    prompt: "photorealistic, raw photograph, natural skin"
   },
   {
     name: "Semi-realism",

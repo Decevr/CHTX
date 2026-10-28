@@ -12,7 +12,7 @@ CHTX stores the catalog in the app. Browsing and copying work without an account
 
 ## Install on Windows
 
-1. Download [CHTX-Setup-1.6.2.exe](https://github.com/Decevr/CHTX/releases/download/v1.6.2/CHTX-Setup-1.6.2.exe).
+1. Download [CHTX-Setup-1.6.3.exe](https://github.com/Decevr/CHTX/releases/download/v1.6.3/CHTX-Setup-1.6.3.exe).
 2. Open the file and choose Install.
 3. If Windows says the publisher is unknown, choose More info, then Run anyway.
 4. Open CHTX from the desktop shortcut or the Start menu.
@@ -21,7 +21,7 @@ The installer does not need an administrator login. It puts CHTX in your user fo
 
 ## Install on Android
 
-1. Download [chtx-1.6.2.apk](https://github.com/Decevr/CHTX/releases/download/v1.6.2/chtx-1.6.2.apk).
+1. Download [chtx-1.6.3.apk](https://github.com/Decevr/CHTX/releases/download/v1.6.3/chtx-1.6.3.apk).
 2. Open the file. If Android asks, allow install from the browser.
 3. Install, then open CHTX.
 
@@ -58,4 +58,4 @@ The Windows installer is built on Windows:
 powershell -ExecutionPolicy Bypass -File windows\build-setup.ps1
 ```
 
-That writes `dist/CHTX-Setup-1.6.2.exe`. The `dist` folder stays on the machine that built it.
+That writes `dist/CHTX-Setup-1.6.3.exe`. The `dist` folder stays on the machine that built it.

@@ -370,8 +370,8 @@
     detail.innerHTML =
       '<div class="detail-bar"><button type="button" class="back" id="back">Back</button></div>' +
       '<img class="portrait" alt="">' +
-      '<div class="detail-copy"><h2></h2><p class="meta">Example</p></div>' +
-      '<article class="prompt"><h3>Prompt</h3><p id="style-prompt"></p><button type="button" class="copy" id="copy-style">Copy prompt</button></article>';
+      '<div class="detail-copy"><h2></h2></div>' +
+      '<article class="prompt"><h3>Style</h3><p id="style-prompt"></p><button type="button" class="copy" id="copy-style">Copy style</button></article>';
     detail.querySelector(".portrait").src = row.image;
     detail.querySelector("h2").textContent = row.name;
     detail.querySelector("#style-prompt").textContent = row.prompt;
@@ -655,10 +655,7 @@
       var copy = document.createElement("div");
       var heading = document.createElement("h2");
       heading.textContent = row.name;
-      var series = document.createElement("p");
-      series.textContent = "Example";
       copy.appendChild(heading);
-      copy.appendChild(series);
       button.appendChild(image);
       button.appendChild(copy);
       button.addEventListener("click", function () { openStyleDetail(index); });

@@ -108,6 +108,7 @@ button { cursor: pointer; }
 .category-menu.is-open #category-toggle svg { transform: rotate(180deg); }
 .category-panel {
   position: absolute; left: 0; right: 0; top: calc(100% + 6px); z-index: 2;
+  max-height: min(62vh, 480px); overflow: auto;
   background: #1b212b; border: 1px solid var(--line); border-radius: 14px;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4); padding: 6px;
 }
@@ -116,6 +117,8 @@ button { cursor: pointer; }
   border: 0; background: transparent; border-radius: 10px; padding: 12px; text-align: left;
 }
 .category-option span { color: var(--muted); font-size: 13px; }
+.category-option.sub { padding-left: 26px; }
+.category-option.sub strong { font-weight: 600; font-size: 14px; }
 .category-option.is-on { background: rgba(92, 239, 255, 0.14); color: var(--gold); }
 .category-option.is-on span { color: var(--gold); }
 
@@ -137,6 +140,17 @@ main { padding: 4px 16px 8px; }
   font-size: 26px; font-weight: 800; letter-spacing: -0.04em; line-height: 0.95;
 }
 .tile span { display: block; margin-top: 8px; }
+.title-tile { min-height: 92px; }
+.title-tile strong { font-size: 16px; letter-spacing: -0.03em; line-height: 1.15; }
+.title-back {
+  width: 100%; margin: 0 0 8px; padding: 12px 14px; text-align: left;
+  border-radius: 14px; border: 1px solid var(--line); background: #171c24; color: var(--gold);
+}
+.title-heading { margin: 2px 2px 12px; color: var(--muted); font-size: 13px; }
+.group { margin: 0 0 18px; }
+.group h3 {
+  margin: 2px 2px 10px; color: var(--gold); font-size: 15px; font-weight: 700; letter-spacing: -0.02em;
+}
 .empty { color: var(--muted); padding: 28px 4px; margin: 0; }
 
 .dock {
@@ -144,7 +158,7 @@ main { padding: 4px 16px 8px; }
   left: 50%; bottom: calc(14px + env(safe-area-inset-bottom));
   transform: translateX(-50%);
   width: min(488px, calc(100% - 32px));
-  display: grid; grid-template-columns: 1fr 1fr; gap: 4px;
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px;
   padding: 5px;
   background: rgba(20, 25, 32, 0.9);
   border: 1px solid var(--line);
@@ -155,7 +169,7 @@ main { padding: 4px 16px 8px; }
 .dock button {
   border: 0; background: transparent; color: var(--muted);
   display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 8px;
-  height: 44px; border-radius: 999px; font-size: 14px; font-weight: 600; padding: 0;
+  height: 44px; border-radius: 999px; font-size: 13px; font-weight: 600; padding: 0;
 }
 .dock svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.7; }
 .dock rect { fill: none; stroke: currentColor; }

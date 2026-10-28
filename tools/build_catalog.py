@@ -141,6 +141,120 @@ def install_marks():
             image.save(round_dest, "PNG")
 
 
+# Lookbook portraits added after the 744-card page. Jade was already on that page.
+EXTRAS = [
+    ("anime", "Revy", "Black Lagoon", "anime/revy__black_lagoon.png"),
+    ("anime", "Balalaika", "Black Lagoon", "anime/balalaika__black_lagoon.png"),
+    ("anime", "Fujiko Mine", "Lupin the Third", "anime/fujiko_mine__lupin_the_third.png"),
+    ("anime", "Retsu Unohana", "Bleach", "anime/retsu_unohana__bleach.png"),
+    ("anime", "Lisa Lisa", "JoJo's Bizarre Adventure", "anime/lisa_lisa__jojo_s_bizarre_adventure.png"),
+    ("anime", "Esdeath", "Akame ga Kill!", "anime/esdeath__akame_ga_kill.png"),
+    ("anime", "Nana Osaki", "Nana", "anime/nana_osaki__nana.png"),
+    ("anime", "Serie", "Frieren", "anime/serie__frieren.png"),
+    ("anime", "Fiona Frost", "Spy x Family", "anime/fiona_frost__spy_x_family.png"),
+    ("anime", "Integra Hellsing", "Hellsing", "anime/integra_hellsing__hellsing.png"),
+    ("anime", "Roberta", "Black Lagoon", "anime/roberta__black_lagoon.png"),
+    ("anime", "Ritsuko Akagi", "Neon Genesis Evangelion", "anime/ritsuko_akagi__neon_genesis_evangelion.png"),
+    ("anime", "Naomi Misora", "Death Note", "anime/naomi_misora__death_note.png"),
+    ("anime", "Sylvia Sherwood", "Spy x Family", "anime/sylvia_sherwood__spy_x_family.png"),
+    ("anime", "Crusch Karsten", "Re:Zero", "anime/crusch_karsten__re_zero.png"),
+    ("anime", "Lust", "Fullmetal Alchemist", "anime/lust__fullmetal_alchemist.png"),
+    ("anime", "Holo", "Spice and Wolf", "anime/holo__spice_and_wolf.png"),
+    ("anime", "Merlin", "The Seven Deadly Sins", "anime/merlin__the_seven_deadly_sins.png"),
+    ("anime", "Cornelia li Britannia", "Code Geass", "anime/cornelia_li_britannia__code_geass.png"),
+    ("anime", "Utahime Iori", "Jujutsu Kaisen", "anime/utahime_iori__jujutsu_kaisen.png"),
+    ("cartoons", "Wilma Flintstone", "The Flintstones", "cartoons/wilma_flintstone__the_flintstones.png"),
+    ("cartoons", "Betty Rubble", "The Flintstones", "cartoons/betty_rubble__the_flintstones.png"),
+    ("cartoons", "Jane Jetson", "The Jetsons", "cartoons/jane_jetson__the_jetsons.png"),
+    ("cartoons", "Peggy Hill", "King of the Hill", "cartoons/peggy_hill__king_of_the_hill.png"),
+    ("cartoons", "Morticia Addams", "The Addams Family", "cartoons/morticia_addams__the_addams_family.png"),
+    ("cartoons", "Aeon Flux", "Aeon Flux", "cartoons/aeon_flux__aeon_flux.png"),
+    ("cartoons", "Teela", "He-Man and the Masters of the Universe", "cartoons/teela__he_man_and_the_masters_of_the_universe.png"),
+    ("cartoons", "Evil-Lyn", "He-Man and the Masters of the Universe", "cartoons/evil_lyn__he_man_and_the_masters_of_the_universe.png"),
+    ("cartoons", "Cheetara", "ThunderCats", "cartoons/cheetara__thundercats.png"),
+    ("cartoons", "Princess Bean", "Disenchantment", "cartoons/princess_bean__disenchantment.png"),
+    ("video_games", "Skarlet", "Mortal Kombat", "video_games/skarlet__mortal_kombat.png"),
+    ("video_games", "Rose", "Street Fighter", "video_games/rose__street_fighter.png"),
+    ("video_games", "Blue Mary", "The King of Fighters", "video_games/blue_mary__the_king_of_fighters.png"),
+    ("video_games", "Hilde", "Soulcalibur", "video_games/hilde__soulcalibur.png"),
+    ("video_games", "Philippa Eilhart", "The Witcher", "video_games/philippa_eilhart__the_witcher.png"),
+    ("video_games", "Maria", "Silent Hill 2", "video_games/maria__silent_hill_2.png"),
+    ("video_games", "Tess", "The Last of Us", "video_games/tess__the_last_of_us.png"),
+    ("video_games", "Talanah Khane Padish", "Horizon Zero Dawn", "video_games/talanah_khane_padish__horizon_zero_dawn.png"),
+    ("video_games", "Samantha Nishimura", "Tomb Raider", "video_games/samantha_nishimura__tomb_raider.png"),
+    ("disney", "The Evil Queen", "Disney", "disney/the_evil_queen__disney.png"),
+    ("disney", "Ursula", "Disney", "disney/ursula__disney.png"),
+    ("disney", "Lady Tremaine", "Disney", "disney/lady_tremaine__disney.png"),
+    ("disney", "Fairy Godmother", "Disney", "disney/fairy_godmother__disney.png"),
+    ("disney", "Queen of Hearts", "Disney", "disney/queen_of_hearts__disney.png"),
+    ("disney", "Madam Mim", "Disney", "disney/madam_mim__disney.png"),
+    ("disney", "Helga Sinclair", "Disney", "disney/helga_sinclair__disney.png"),
+    ("disney", "Captain Amelia", "Disney", "disney/captain_amelia__disney.png"),
+    ("disney", "Judy Hopps", "Disney", "disney/judy_hopps__disney.png"),
+    ("disney", "Elizabeth Swann", "Disney", "disney/elizabeth_swann__disney.png"),
+    ("pixar", "Mirage", "Pixar", "pixar/mirage__pixar.png"),
+    ("pixar", "Evelyn Deavor", "Pixar", "pixar/evelyn_deavor__pixar.png"),
+    ("pixar", "Jill Andersen", "Pixar", "pixar/jill_andersen__pixar.png"),
+    ("pixar", "Queen Elinor", "Pixar", "pixar/queen_elinor__pixar.png"),
+    ("pixar", "Mama Imelda", "Pixar", "pixar/mama_imelda__pixar.png"),
+    ("pixar", "Laurel Lightfoot", "Pixar", "pixar/laurel_lightfoot__pixar.png"),
+    ("pixar", "Dorothea Williams", "Pixar", "pixar/dorothea_williams__pixar.png"),
+    ("pixar", "Celia Mae", "Pixar", "pixar/celia_mae__pixar.png"),
+    ("pixar", "Sally Carrera", "Pixar", "pixar/sally_carrera__pixar.png"),
+    ("pixar", "Cinder Lumen", "Pixar", "pixar/cinder_lumen__pixar.png"),
+    ("marvel", "Mantis", "Marvel", "marvel/mantis__marvel.png"),
+    ("marvel", "Frigga", "Marvel", "marvel/frigga__marvel.png"),
+    ("marvel", "Ramonda", "Marvel", "marvel/ramonda__marvel.png"),
+    ("marvel", "Thena", "Marvel", "marvel/thena__marvel.png"),
+    ("marvel", "Amora", "Marvel", "marvel/amora__marvel.png"),
+    ("marvel", "Clea", "Marvel", "marvel/clea__marvel.png"),
+    ("marvel", "Misty Knight", "Marvel", "marvel/misty_knight__marvel.png"),
+    ("marvel", "Echo", "Marvel", "marvel/echo__marvel.png"),
+    ("marvel", "Viper", "Marvel", "marvel/viper__marvel.png"),
+    ("dc", "Nubia", "DC", "dc/nubia__dc.png"),
+    ("dc", "Atlanna", "DC", "dc/atlanna__dc.png"),
+    ("dc", "Andrea Beaumont", "DC", "dc/andrea_beaumont__dc.png"),
+    ("dc", "Madame Xanadu", "DC", "dc/madame_xanadu__dc.png"),
+    ("dc", "Isis", "DC", "dc/isis__dc.png"),
+    ("dc", "Jo Mullein", "DC", "dc/jo_mullein__dc.png"),
+    ("dc", "Cheshire", "DC", "dc/cheshire__dc.png"),
+    ("dc", "Silver Banshee", "DC", "dc/silver_banshee__dc.png"),
+    ("pokemon", "Zinnia", "Pokemon", "pokemon/zinnia__pokemon.png"),
+    ("pokemon", "Professor Burnet", "Pokemon", "pokemon/professor_burnet__pokemon.png"),
+    ("pokemon", "Ariana", "Pokemon", "pokemon/ariana__pokemon.png"),
+]
+
+
+def with_extras(rows: list[dict]) -> list[dict]:
+    have = {row["src"] for row in rows}
+    grouped: dict[str, list[dict]] = {}
+    order: list[str] = []
+    for row in rows:
+        if row["category"] not in grouped:
+            grouped[row["category"]] = []
+            order.append(row["category"])
+        grouped[row["category"]].append(row)
+    added = 0
+    for category, name, series, src in EXTRAS:
+        if src in have:
+            continue
+        if category not in grouped:
+            grouped[category] = []
+            order.append(category)
+        grouped[category].append({
+            "category": category,
+            "src": src,
+            "name": name,
+            "series": series,
+        })
+        added += 1
+    print(f"extras={added}", flush=True)
+    merged = []
+    for category in order:
+        merged.extend(grouped[category])
+    return merged
+
+
 def main():
     characters = load_module("characters", CHARACTERS)
     adult = set(characters.ADULT)
@@ -151,7 +265,7 @@ def main():
             negative = added.CHILD_NEG if item.get("child") else added.NEG
             custom[(item["name"], item["series"])] = (added.positive(item), negative)
 
-    rows = parse_page()
+    rows = with_extras(parse_page())
     print(f"cards={len(rows)} custom={len(custom)}", flush=True)
     if len(rows) < 700:
         raise SystemExit("lookbook parse missed most cards")
